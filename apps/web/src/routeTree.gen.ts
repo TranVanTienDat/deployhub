@@ -9,38 +9,212 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as ProjectsRouteImport } from './routes/projects'
+import { Route as PipelinesRouteImport } from './routes/pipelines'
+import { Route as LogsRouteImport } from './routes/logs'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as AnalyticsRouteImport } from './routes/analytics'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PipelinesRunsRouteImport } from './routes/pipelines.runs'
+import { Route as PipelinesHistoryRouteImport } from './routes/pipelines.history'
+import { Route as DeploymentsNewRouteImport } from './routes/deployments.new'
+import { Route as DeploymentsIdRouteImport } from './routes/deployments.$id'
 
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectsRoute = ProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PipelinesRoute = PipelinesRouteImport.update({
+  id: '/pipelines',
+  path: '/pipelines',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LogsRoute = LogsRouteImport.update({
+  id: '/logs',
+  path: '/logs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AnalyticsRoute = AnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PipelinesRunsRoute = PipelinesRunsRouteImport.update({
+  id: '/runs',
+  path: '/runs',
+  getParentRoute: () => PipelinesRoute,
+} as any)
+const PipelinesHistoryRoute = PipelinesHistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => PipelinesRoute,
+} as any)
+const DeploymentsNewRoute = DeploymentsNewRouteImport.update({
+  id: '/deployments/new',
+  path: '/deployments/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DeploymentsIdRoute = DeploymentsIdRouteImport.update({
+  id: '/deployments/$id',
+  path: '/deployments/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/analytics': typeof AnalyticsRoute
+  '/dashboard': typeof DashboardRoute
+  '/logs': typeof LogsRoute
+  '/pipelines': typeof PipelinesRouteWithChildren
+  '/projects': typeof ProjectsRoute
+  '/settings': typeof SettingsRoute
+  '/deployments/$id': typeof DeploymentsIdRoute
+  '/deployments/new': typeof DeploymentsNewRoute
+  '/pipelines/history': typeof PipelinesHistoryRoute
+  '/pipelines/runs': typeof PipelinesRunsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/analytics': typeof AnalyticsRoute
+  '/dashboard': typeof DashboardRoute
+  '/logs': typeof LogsRoute
+  '/pipelines': typeof PipelinesRouteWithChildren
+  '/projects': typeof ProjectsRoute
+  '/settings': typeof SettingsRoute
+  '/deployments/$id': typeof DeploymentsIdRoute
+  '/deployments/new': typeof DeploymentsNewRoute
+  '/pipelines/history': typeof PipelinesHistoryRoute
+  '/pipelines/runs': typeof PipelinesRunsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/analytics': typeof AnalyticsRoute
+  '/dashboard': typeof DashboardRoute
+  '/logs': typeof LogsRoute
+  '/pipelines': typeof PipelinesRouteWithChildren
+  '/projects': typeof ProjectsRoute
+  '/settings': typeof SettingsRoute
+  '/deployments/$id': typeof DeploymentsIdRoute
+  '/deployments/new': typeof DeploymentsNewRoute
+  '/pipelines/history': typeof PipelinesHistoryRoute
+  '/pipelines/runs': typeof PipelinesRunsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/analytics'
+    | '/dashboard'
+    | '/logs'
+    | '/pipelines'
+    | '/projects'
+    | '/settings'
+    | '/deployments/$id'
+    | '/deployments/new'
+    | '/pipelines/history'
+    | '/pipelines/runs'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/analytics'
+    | '/dashboard'
+    | '/logs'
+    | '/pipelines'
+    | '/projects'
+    | '/settings'
+    | '/deployments/$id'
+    | '/deployments/new'
+    | '/pipelines/history'
+    | '/pipelines/runs'
+  id:
+    | '__root__'
+    | '/'
+    | '/analytics'
+    | '/dashboard'
+    | '/logs'
+    | '/pipelines'
+    | '/projects'
+    | '/settings'
+    | '/deployments/$id'
+    | '/deployments/new'
+    | '/pipelines/history'
+    | '/pipelines/runs'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AnalyticsRoute: typeof AnalyticsRoute
+  DashboardRoute: typeof DashboardRoute
+  LogsRoute: typeof LogsRoute
+  PipelinesRoute: typeof PipelinesRouteWithChildren
+  ProjectsRoute: typeof ProjectsRoute
+  SettingsRoute: typeof SettingsRoute
+  DeploymentsIdRoute: typeof DeploymentsIdRoute
+  DeploymentsNewRoute: typeof DeploymentsNewRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects': {
+      id: '/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof ProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pipelines': {
+      id: '/pipelines'
+      path: '/pipelines'
+      fullPath: '/pipelines'
+      preLoaderRoute: typeof PipelinesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/logs': {
+      id: '/logs'
+      path: '/logs'
+      fullPath: '/logs'
+      preLoaderRoute: typeof LogsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/analytics': {
+      id: '/analytics'
+      path: '/analytics'
+      fullPath: '/analytics'
+      preLoaderRoute: typeof AnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +222,61 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pipelines/runs': {
+      id: '/pipelines/runs'
+      path: '/runs'
+      fullPath: '/pipelines/runs'
+      preLoaderRoute: typeof PipelinesRunsRouteImport
+      parentRoute: typeof PipelinesRoute
+    }
+    '/pipelines/history': {
+      id: '/pipelines/history'
+      path: '/history'
+      fullPath: '/pipelines/history'
+      preLoaderRoute: typeof PipelinesHistoryRouteImport
+      parentRoute: typeof PipelinesRoute
+    }
+    '/deployments/new': {
+      id: '/deployments/new'
+      path: '/deployments/new'
+      fullPath: '/deployments/new'
+      preLoaderRoute: typeof DeploymentsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/deployments/$id': {
+      id: '/deployments/$id'
+      path: '/deployments/$id'
+      fullPath: '/deployments/$id'
+      preLoaderRoute: typeof DeploymentsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface PipelinesRouteChildren {
+  PipelinesHistoryRoute: typeof PipelinesHistoryRoute
+  PipelinesRunsRoute: typeof PipelinesRunsRoute
+}
+
+const PipelinesRouteChildren: PipelinesRouteChildren = {
+  PipelinesHistoryRoute: PipelinesHistoryRoute,
+  PipelinesRunsRoute: PipelinesRunsRoute,
+}
+
+const PipelinesRouteWithChildren = PipelinesRoute._addFileChildren(
+  PipelinesRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AnalyticsRoute: AnalyticsRoute,
+  DashboardRoute: DashboardRoute,
+  LogsRoute: LogsRoute,
+  PipelinesRoute: PipelinesRouteWithChildren,
+  ProjectsRoute: ProjectsRoute,
+  SettingsRoute: SettingsRoute,
+  DeploymentsIdRoute: DeploymentsIdRoute,
+  DeploymentsNewRoute: DeploymentsNewRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

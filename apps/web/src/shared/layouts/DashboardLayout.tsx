@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback } from '@workspace/ui/components/Avatar'
+import { Avatar, AvatarFallback, AvatarImage } from '@workspace/ui/components/Avatar'
 import {
     DashboardHeader,
     SidebarNavigationMenu,
@@ -13,71 +13,74 @@ import {
     SidebarProvider,
 } from '@workspace/ui/components/Sidebar'
 import {
+    ActivityIcon,
+    BarChart3Icon,
+    BoxIcon,
     HelpCircleIcon,
-    HomeIcon,
-    LayoutGridIcon,
-    MessageCircleIcon,
+    LayoutDashboardIcon,
+    RocketIcon,
     SettingsIcon,
-    ShapesIcon,
-    UserIcon,
+    TerminalIcon,
 } from 'lucide-react'
 import { Link, LinkComponentProps, useRouterState } from '@tanstack/react-router'
+import { ThemeSwitcher } from '../components/ThemeSwitcher'
 
 const MAIN_ITEMS: Array<SidebarNavigationMenuItem> = [
     {
-        title: 'Playground',
+        title: 'Control Center',
         url: '/dashboard',
-        icon: HomeIcon,
+        icon: LayoutDashboardIcon,
+    },
+    {
+        title: 'Projects',
+        url: '/projects',
+        icon: BoxIcon,
+    },
+    {
+        title: 'Pipelines',
+        url: '/pipelines',
+        icon: RocketIcon,
         items: [
             {
+                title: 'Active Runs',
+                url: '/pipelines/runs',
+            },
+            {
                 title: 'History',
-                url: '/dashboard/history',
-            },
-            {
-                title: 'Templates',
-                url: '/dashboard/templates',
-            },
-            {
-                title: 'Starred',
-                url: '/dashboard/starred',
+                url: '/pipelines/history',
             },
         ],
     },
     {
-        title: 'Profile',
-        icon: UserIcon,
-        url: '/dashboard/profile',
+        title: 'Resource & Logs',
+        url: '/logs',
+        icon: TerminalIcon,
+    },
+]
+
+const MONITORING_ITEMS: Array<SidebarNavigationMenuItem> = [
+    {
+        title: 'Analytics',
+        url: '/analytics',
+        icon: BarChart3Icon,
     },
     {
-        title: 'Settings',
+        title: 'System Health',
+        url: '/health',
+        icon: ActivityIcon,
+    },
+]
+
+const SYSTEM_ITEMS: Array<SidebarNavigationMenuItem> = [
+    {
+        title: 'Global Settings',
+        url: '/settings',
         icon: SettingsIcon,
-        url: '/dashboard/settings',
-    },
-]
-
-const PROJECTS_ITEMS: Array<SidebarNavigationMenuItem> = [
-    {
-        title: 'Design System',
-        url: '/dashboard/design-system',
-        icon: ShapesIcon,
     },
     {
-        title: 'UI Components',
-        url: '/dashboard/components',
-        icon: LayoutGridIcon,
-    },
-]
-
-const SECONDARY_ITEMS: Array<SidebarNavigationMenuItem> = [
-    {
-        title: 'Help',
-        url: '/dashboard/help',
+        title: 'Documentation',
+        url: '/docs',
         icon: HelpCircleIcon,
-    },
-    {
-        title: 'Feedback',
-        url: '/dashboard/feedback',
-        icon: MessageCircleIcon,
     },
 ]
 
@@ -95,9 +98,14 @@ export function DashboardLayout({ children, defaultOpen = true }: DashboardLayou
 
     return (
         <SidebarProvider defaultOpen={defaultOpen}>
-            <Sidebar collapsible="icon">
-                <SidebarHeader>
-                    <h1 className="text-2xl font-bold">BS</h1>
+            <Sidebar collapsible="icon" className="border-r border-border/50">
+                <SidebarHeader className="flex flex-row items-center gap-3 px-4 py-6">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary text-primary-foreground shadow-lg shadow-primary/20">
+                        <BoxIcon size={18} strokeWidth={2.5} />
+                    </div>
+                    <span className="text-sm font-bold tracking-tight group-data-[collapsible=icon]:hidden">
+                        DeployHub
+                    </span>
                 </SidebarHeader>
 
                 <SidebarContent>
@@ -107,30 +115,57 @@ export function DashboardLayout({ children, defaultOpen = true }: DashboardLayou
                         currentPathname={currentPathname}
                     />
                     <SidebarNavigationMenu
-                        title="Projects"
+                        title="Monitoring"
                         linkComponent={CustomLink}
-                        items={PROJECTS_ITEMS}
+                        items={MONITORING_ITEMS}
                         currentPathname={currentPathname}
                         className="mt-6"
                     />
                     <SidebarNavigationMenu
+                        title="System"
                         linkComponent={CustomLink}
-                        items={SECONDARY_ITEMS}
+                        items={SYSTEM_ITEMS}
                         className="mt-auto"
                         currentPathname={currentPathname}
                     />
                 </SidebarContent>
 
-                <SidebarFooter>{/* footer  */}</SidebarFooter>
+                <SidebarFooter className="p-4 group-data-[collapsible=icon]:p-2">
+                    <div className="flex items-center gap-3 rounded-lg bg-sidebar-accent/50 p-2 transition-colors hover:bg-sidebar-accent group-data-[collapsible=icon]:justify-center">
+                        <Avatar className="h-8 w-8 rounded-md border border-sidebar-border">
+                            <AvatarImage src="https://github.com/ttcenter.png" />
+                            <AvatarFallback className="rounded-md bg-sidebar-accent text-[10px]">LD</AvatarFallback>
+                        </Avatar>
+                        <div className="flex flex-col overflow-hidden group-data-[collapsible=icon]:hidden">
+                            <span className="truncate text-xs font-medium">Lão Đại</span>
+                            <span className="truncate text-[10px] text-muted-foreground">Premium Plan</span>
+                        </div>
+                    </div>
+                </SidebarFooter>
             </Sidebar>
 
-            <SidebarInset>
-                <DashboardHeader>
-                    <Avatar className="ml-auto">
-                        <AvatarFallback>HP</AvatarFallback>
-                    </Avatar>
+            <SidebarInset className="bg-background/95">
+                <DashboardHeader className="glass sticky top-0 z-30 border-b border-border/50 px-6">
+                    <div className="flex w-full items-center justify-between">
+                        <div className="flex flex-col">
+                            <span className="text-xs text-muted-foreground uppercase tracking-widest font-medium">
+                                System Status
+                            </span>
+                            <div className="flex items-center gap-2">
+                                <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                                <span className="text-sm font-semibold">All systems operational</span>
+                            </div>
+                        </div>
+                        <div className="flex items-center gap-4">
+                            <ThemeSwitcher />
+                            <Avatar className="h-8 w-8 border border-border/50 shadow-sm">
+                                <AvatarImage src="https://github.com/ttcenter.png" />
+                                <AvatarFallback>LD</AvatarFallback>
+                            </Avatar>
+                        </div>
+                    </div>
                 </DashboardHeader>
-                <div className="p-6">{children}</div>
+                <main className="p-6">{children}</main>
             </SidebarInset>
         </SidebarProvider>
     )
