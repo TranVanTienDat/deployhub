@@ -3,23 +3,10 @@ import { DashboardLayout } from '@/shared/layouts/DashboardLayout'
 import { MOCK_DEPLOYMENTS } from '@/shared/lib/mock-data'
 import { Card, CardContent, CardHeader, CardTitle } from '@workspace/ui/components/Card'
 import { Button } from '@workspace/ui/components/Button'
-import { Badge } from '@workspace/ui/components/Badge'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@workspace/ui/components/Table'
-import { Avatar, AvatarFallback, AvatarImage } from '@workspace/ui/components/Avatar'
+import { DeploymentTable } from '@/shared/components/DeploymentTable'
 import { Tabs, TabList, Tab } from '@workspace/ui/components/Tabs'
 import { BsSearchField } from '@workspace/ui/components/Searchfield'
-import {
-    RocketIcon,
-    ClockIcon,
-    GitBranchIcon,
-    ExternalLinkIcon,
-    RotateCcwIcon,
-    FilterIcon,
-    MoreHorizontalIcon,
-    CheckCircle2Icon,
-    XCircleIcon,
-    AlertCircleIcon,
-} from 'lucide-react'
+import { RocketIcon, FilterIcon } from 'lucide-react'
 import { useState, useMemo } from 'react'
 
 export const Route = createFileRoute('/pipelines/history')({
@@ -151,49 +138,7 @@ function DeploymentHistoryPage() {
                 </div>
 
                 {/* History Table */}
-                <div className="bg-white/[0.02] border border-white/[0.05] rounded-xl overflow-hidden shadow-2xl precise-edge">
-                    <Table>
-                        <TableHeader className="bg-white/[0.03]">
-                            <TableRow className="hover:bg-transparent border-white/[0.05]">
-                                <TableHead className="text-[10px] uppercase tracking-widest font-bold py-4 text-muted-foreground pl-6">
-                                    Deploy ID
-                                </TableHead>
-                                <TableHead className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground">
-                                    Status
-                                </TableHead>
-                                <TableHead className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground">
-                                    Project / Branch
-                                </TableHead>
-                                <TableHead className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground">
-                                    Commit
-                                </TableHead>
-                                <TableHead className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground">
-                                    Author
-                                </TableHead>
-                                <TableHead className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground">
-                                    Duration
-                                </TableHead>
-                                <TableHead className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground text-right pr-6">
-                                    Actions
-                                </TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody className="[&_tr:nth-child(odd)]:bg-transparent [&_tr:nth-child(even)]:bg-white/[0.01]">
-                            {filteredDeployments.length > 0 ? (
-                                filteredDeployments.map(deploy => <DeploymentRow key={deploy.id} deploy={deploy} />)
-                            ) : (
-                                <TableRow>
-                                    <TableCell
-                                        colSpan={7}
-                                        className="h-32 text-center text-muted-foreground text-sm italic"
-                                    >
-                                        No deployments found matching your criteria.
-                                    </TableCell>
-                                </TableRow>
-                            )}
-                        </TableBody>
-                    </Table>
-                </div>
+                <DeploymentTable deployments={filteredDeployments} />
 
                 {/* Summary Stats Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
@@ -222,103 +167,6 @@ function DeploymentHistoryPage() {
                 </div>
             </div>
         </DashboardLayout>
-    )
-}
-
-function DeploymentRow({ deploy }: { deploy: (typeof MOCK_DEPLOYMENTS)[0] }) {
-    const statusConfig = {
-        success: {
-            label: 'Success',
-            icon: <CheckCircle2Icon className="h-3 w-3" />,
-            color: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
-        },
-        failed: {
-            label: 'Failed',
-            icon: <XCircleIcon className="h-3 w-3" />,
-            color: 'bg-rose-500/10 text-rose-400 border-rose-500/20',
-        },
-        canceled: {
-            label: 'Canceled',
-            icon: <AlertCircleIcon className="h-3 w-3" />,
-            color: 'bg-zinc-500/10 text-zinc-400 border-zinc-500/20',
-        },
-        running: {
-            label: 'Running',
-            icon: <ClockIcon className="h-3 w-3 animate-spin" />,
-            color: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
-        },
-    }
-
-    const config = statusConfig[deploy.status]
-
-    return (
-        <TableRow className="group border-white/[0.05] hover:bg-white/[0.04] transition-colors">
-            <TableCell className="py-4">
-                <span className="font-mono text-xs font-semibold text-white/90">{deploy.id}</span>
-                <div className="text-[10px] text-muted-foreground mt-0.5">
-                    {new Date(deploy.createdAt).toLocaleDateString()}
-                </div>
-            </TableCell>
-            <TableCell>
-                <Badge
-                    className={`flex items-center gap-1.5 w-fit font-bold tracking-wider text-[9px] uppercase px-2 py-0.5 rounded-full border ${config.color}`}
-                >
-                    {config.icon}
-                    {config.label}
-                </Badge>
-            </TableCell>
-            <TableCell>
-                <div className="flex flex-col gap-0.5">
-                    <span className="text-sm font-medium text-white">{deploy.projectId}</span>
-                    <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground">
-                        <GitBranchIcon size={10} />
-                        <span className="font-mono">{deploy.branch}</span>
-                    </div>
-                </div>
-            </TableCell>
-            <TableCell>
-                <div className="flex items-center gap-1.5 text-zinc-400 hover:text-primary transition-colors cursor-pointer group/commit">
-                    <ExternalLinkIcon size={12} className="opacity-40 group-hover/commit:opacity-100" />
-                    <span className="text-[11px] font-mono">{deploy.commit}</span>
-                </div>
-            </TableCell>
-            <TableCell>
-                <div className="flex items-center gap-2">
-                    <Avatar className="h-6 w-6 border border-white/10">
-                        <AvatarImage src={`https://github.com/${deploy.author}.png`} />
-                        <AvatarFallback className="text-[8px] bg-zinc-800">
-                            {deploy.author.slice(0, 2).toUpperCase()}
-                        </AvatarFallback>
-                    </Avatar>
-                    <span className="text-xs text-muted-foreground">{deploy.author}</span>
-                </div>
-            </TableCell>
-            <TableCell>
-                <div className="flex flex-col">
-                    <span className="text-xs font-mono text-white/80">{deploy.duration}</span>
-                    <span className="text-[9px] text-muted-foreground">
-                        {new Date(deploy.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                    </span>
-                </div>
-            </TableCell>
-            <TableCell className="text-right">
-                <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                    {deploy.status === 'success' && (
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            className="h-8 w-8 hover:bg-primary/10 hover:text-primary"
-                            title="Rollback"
-                        >
-                            <RotateCcwIcon size={14} />
-                        </Button>
-                    )}
-                    <Button variant="ghost" size="icon" className="h-8 w-8 hover:bg-white/10" title="View Logs">
-                        <MoreHorizontalIcon size={14} />
-                    </Button>
-                </div>
-            </TableCell>
-        </TableRow>
     )
 }
 

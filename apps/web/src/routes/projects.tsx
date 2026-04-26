@@ -22,7 +22,7 @@ import { Tooltip, TooltipTrigger } from '@workspace/ui/components/Tooltip'
 import { z } from 'zod'
 
 const projectsSearchSchema = z.object({
-    view: z.enum(['grid', 'list']).catch('grid'),
+    view: z.enum(['grid', 'list']).optional().default('grid'),
 })
 
 export const Route = createFileRoute('/projects')({
@@ -32,7 +32,7 @@ export const Route = createFileRoute('/projects')({
 
 function ProjectsComponent() {
     const { view: viewMode } = Route.useSearch()
-    const navigate = useNavigate()
+    const navigate = useNavigate({ from: Route.fullPath })
 
     const [searchQuery, setSearchQuery] = useState('')
     const [statusFilter, setStatusFilter] = useState<string[]>([])

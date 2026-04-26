@@ -92,7 +92,7 @@ function DashboardComponent() {
                         <div className="lg:col-span-2 flex flex-col gap-4">
                             <div className="flex items-center justify-between">
                                 <h2 className="text-lg font-semibold tracking-tight">Active Projects</h2>
-                                <Link to="/projects">
+                                <Link to="/projects" search={{ view: 'grid' }}>
                                     <Button
                                         variant="ghost"
                                         size="sm"

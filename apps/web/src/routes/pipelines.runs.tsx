@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { DashboardLayout } from '@/shared/layouts/DashboardLayout'
 import { MOCK_DEPLOYMENTS } from '@/shared/lib/mock-data'
-import { DeploymentTable } from '@/features/deployments/components/DeploymentTable'
+import { DeploymentTable } from '@/shared/components/DeploymentTable'
 import { ActivityIcon, RefreshCwIcon } from 'lucide-react'
 import { Button } from '@workspace/ui/components/Button'
 
