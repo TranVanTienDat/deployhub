@@ -8,15 +8,16 @@ created: 2026-04-26
 
 Dưới đây là chi tiết các User Stories thuộc Epic 01, tập trung vào việc xác thực người dùng và thiết lập kết nối với các nền tảng hạ tầng.
 
-## US-01: Đăng nhập bằng tài khoản Github
+## US-01: Đăng nhập bằng tài khoản Social (Github/Google)
 **Mô tả:**
-> Là một **Developer**, tôi muốn **đăng nhập vào Thinkway bằng tài khoản Github**, để **tôi có thể nhanh chóng truy cập hệ thống mà không cần tạo mật khẩu mới và tự động đồng bộ repository sau này.**
+> Là một **Developer**, tôi muốn **đăng nhập vào Thinkway bằng tài khoản Github hoặc Google (Gmail)**, để **tôi có thể nhanh chóng truy cập hệ thống mà không cần tạo mật khẩu mới và tự động đồng bộ repository hoặc thông tin cá nhân sau này.**
 
 **Tiêu chí chấp nhận (AC):**
-- [ ] Hiển thị nút "Continue with Github" tại trang Login.
-- [ ] Chuyển hướng người dùng sang trang OAuth của Github thành công.
+- [ ] Hiển thị nút "Continue with Github" và "Continue with Google" tại trang Login.
+- [ ] Chuyển hướng người dùng sang trang OAuth của provider tương ứng thành công.
 - [ ] Sau khi xác thực, người dùng được đưa về Dashboard của Thinkway.
-- [ ] Lưu trữ thông tin cơ bản: Github ID, Email, Avatar URL.
+- [ ] Hệ thống tự động nhận diện và liên kết tài khoản nếu cùng địa chỉ Email.
+- [ ] Lưu trữ thông tin cơ bản: Provider ID, Email, Avatar URL.
 
 ---
 
