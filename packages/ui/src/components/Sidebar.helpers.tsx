@@ -142,11 +142,14 @@ function SidebarNavigationMenu({
 
 interface DashboardHeaderProps {
     children?: React.ReactNode
+    className?: string
 }
 
-function DashboardHeader({ children }: DashboardHeaderProps) {
+function DashboardHeader({ children, className }: DashboardHeaderProps) {
     return (
-        <header className="sticky top-0 z-10 bg-background flex h-16 shrink-0 items-center gap-2 border-b w-full">
+        <header
+            className={`sticky top-0 z-10 bg-background flex h-16 shrink-0 items-center gap-2 border-b w-full ${className}`}
+        >
             <div className="flex items-center gap-2 px-4 w-full md:px-6">
                 <SidebarTrigger className="-ml-1" />
                 {children}
