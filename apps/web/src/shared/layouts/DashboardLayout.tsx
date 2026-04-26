@@ -18,12 +18,14 @@ import {
     BoxIcon,
     HelpCircleIcon,
     LayoutDashboardIcon,
+    LogOutIcon,
     RocketIcon,
     SettingsIcon,
     TerminalIcon,
 } from 'lucide-react'
 import { Link, LinkComponentProps, useRouterState } from '@tanstack/react-router'
 import { ThemeSwitcher } from '../components/ThemeSwitcher'
+import { Button } from '@workspace/ui/components/Button'
 
 const MAIN_ITEMS: Array<SidebarNavigationMenuItem> = [
     {
@@ -140,6 +142,15 @@ export function DashboardLayout({ children, defaultOpen = true }: DashboardLayou
                             <span className="truncate text-xs font-medium">Lão Đại</span>
                             <span className="truncate text-[10px] text-muted-foreground">Premium Plan</span>
                         </div>
+                        <Link to="/login" className="ml-auto group-data-[collapsible=icon]:hidden">
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className="h-7 w-7 text-muted-foreground hover:text-destructive transition-colors"
+                            >
+                                <LogOutIcon size={14} />
+                            </Button>
+                        </Link>
                     </div>
                 </SidebarFooter>
             </Sidebar>
