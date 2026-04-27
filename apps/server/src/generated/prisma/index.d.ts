@@ -1232,7 +1232,7 @@ export namespace Prisma {
     name: string | null;
     avatarUrl: string | null;
     provider: string;
-    providerId: string;
+    providerId: string | null;
     createdAt: Date;
     updatedAt: Date;
     _count: UserCountAggregateOutputType | null;
@@ -1353,7 +1353,7 @@ export namespace Prisma {
         name: string | null;
         avatarUrl: string | null;
         provider: string;
-        providerId: string;
+        providerId: string | null;
         createdAt: Date;
         updatedAt: Date;
       },
@@ -3952,7 +3952,7 @@ export namespace Prisma {
     name?: StringNullableFilter<'User'> | string | null;
     avatarUrl?: StringNullableFilter<'User'> | string | null;
     provider?: StringFilter<'User'> | string;
-    providerId?: StringFilter<'User'> | string;
+    providerId?: StringNullableFilter<'User'> | string | null;
     createdAt?: DateTimeFilter<'User'> | Date | string;
     updatedAt?: DateTimeFilter<'User'> | Date | string;
     connections?: PlatformConnectionListRelationFilter;
@@ -3964,7 +3964,7 @@ export namespace Prisma {
     name?: SortOrderInput | SortOrder;
     avatarUrl?: SortOrderInput | SortOrder;
     provider?: SortOrder;
-    providerId?: SortOrder;
+    providerId?: SortOrderInput | SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
     connections?: PlatformConnectionOrderByRelationAggregateInput;
@@ -3994,7 +3994,7 @@ export namespace Prisma {
     name?: SortOrderInput | SortOrder;
     avatarUrl?: SortOrderInput | SortOrder;
     provider?: SortOrder;
-    providerId?: SortOrder;
+    providerId?: SortOrderInput | SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
     _count?: UserCountOrderByAggregateInput;
@@ -4015,7 +4015,7 @@ export namespace Prisma {
     name?: StringNullableWithAggregatesFilter<'User'> | string | null;
     avatarUrl?: StringNullableWithAggregatesFilter<'User'> | string | null;
     provider?: StringWithAggregatesFilter<'User'> | string;
-    providerId?: StringWithAggregatesFilter<'User'> | string;
+    providerId?: StringNullableWithAggregatesFilter<'User'> | string | null;
     createdAt?: DateTimeWithAggregatesFilter<'User'> | Date | string;
     updatedAt?: DateTimeWithAggregatesFilter<'User'> | Date | string;
   };
@@ -4109,8 +4109,8 @@ export namespace Prisma {
     email: string;
     name?: string | null;
     avatarUrl?: string | null;
-    provider: string;
-    providerId: string;
+    provider?: string;
+    providerId?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     connections?: PlatformConnectionCreateNestedManyWithoutUserInput;
@@ -4121,8 +4121,8 @@ export namespace Prisma {
     email: string;
     name?: string | null;
     avatarUrl?: string | null;
-    provider: string;
-    providerId: string;
+    provider?: string;
+    providerId?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     connections?: PlatformConnectionUncheckedCreateNestedManyWithoutUserInput;
@@ -4134,7 +4134,7 @@ export namespace Prisma {
     name?: NullableStringFieldUpdateOperationsInput | string | null;
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null;
     provider?: StringFieldUpdateOperationsInput | string;
-    providerId?: StringFieldUpdateOperationsInput | string;
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     connections?: PlatformConnectionUpdateManyWithoutUserNestedInput;
@@ -4146,7 +4146,7 @@ export namespace Prisma {
     name?: NullableStringFieldUpdateOperationsInput | string | null;
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null;
     provider?: StringFieldUpdateOperationsInput | string;
-    providerId?: StringFieldUpdateOperationsInput | string;
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     connections?: PlatformConnectionUncheckedUpdateManyWithoutUserNestedInput;
@@ -4157,8 +4157,8 @@ export namespace Prisma {
     email: string;
     name?: string | null;
     avatarUrl?: string | null;
-    provider: string;
-    providerId: string;
+    provider?: string;
+    providerId?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
   };
@@ -4169,7 +4169,7 @@ export namespace Prisma {
     name?: NullableStringFieldUpdateOperationsInput | string | null;
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null;
     provider?: StringFieldUpdateOperationsInput | string;
-    providerId?: StringFieldUpdateOperationsInput | string;
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -4180,7 +4180,7 @@ export namespace Prisma {
     name?: NullableStringFieldUpdateOperationsInput | string | null;
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null;
     provider?: StringFieldUpdateOperationsInput | string;
-    providerId?: StringFieldUpdateOperationsInput | string;
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -4793,8 +4793,8 @@ export namespace Prisma {
     email: string;
     name?: string | null;
     avatarUrl?: string | null;
-    provider: string;
-    providerId: string;
+    provider?: string;
+    providerId?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
   };
@@ -4804,8 +4804,8 @@ export namespace Prisma {
     email: string;
     name?: string | null;
     avatarUrl?: string | null;
-    provider: string;
-    providerId: string;
+    provider?: string;
+    providerId?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
   };
@@ -4844,7 +4844,7 @@ export namespace Prisma {
     name?: NullableStringFieldUpdateOperationsInput | string | null;
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null;
     provider?: StringFieldUpdateOperationsInput | string;
-    providerId?: StringFieldUpdateOperationsInput | string;
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -4855,7 +4855,7 @@ export namespace Prisma {
     name?: NullableStringFieldUpdateOperationsInput | string | null;
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null;
     provider?: StringFieldUpdateOperationsInput | string;
-    providerId?: StringFieldUpdateOperationsInput | string;
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };

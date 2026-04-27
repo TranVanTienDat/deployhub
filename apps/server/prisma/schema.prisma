@@ -10,20 +10,24 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
+  provider = "postgresql"
 }
+
+
 
 model User {
   id          String               @id @default(uuid())
   email       String               @unique
   name        String?
   avatarUrl   String?
-  provider    String // google, github
-  providerId  String               @unique
+  provider    String               @default("local") // local, google, github
+  providerId  String?              @unique // Nullable cho local login
   createdAt   DateTime             @default(now())
   updatedAt   DateTime             @updatedAt
   connections PlatformConnection[]
 }
+
+
 
 model PlatformConnection {
   id        String   @id @default(uuid())

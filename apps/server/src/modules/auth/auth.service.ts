@@ -16,7 +16,6 @@ export class AuthService {
     let user = await this.usersService.findByProvider(provider, id);
 
     if (!user) {
-      // Tự động liên kết nếu cùng email (theo US-01)
       user = await this.usersService.findByEmail(email);
 
       if (!user) {
@@ -28,8 +27,7 @@ export class AuthService {
           providerId: id,
         });
       } else {
-        // Cập nhật provider ID nếu user tồn tại qua email
-        // (Có thể thêm logic update ở đây)
+        // Cập nhật provider nếu người dùng đã tồn tại qua email
       }
     }
 
@@ -40,7 +38,12 @@ export class AuthService {
     const payload = { email: user.email, sub: user.id };
     return {
       access_token: this.jwtService.sign(payload),
-      user,
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        avatarUrl: user.avatarUrl,
+      },
     };
   }
 }

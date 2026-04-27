@@ -18,8 +18,8 @@ model User {
   email       String               @unique
   name        String?
   avatarUrl   String?
-  provider    String // google, github
-  providerId  String               @unique
+  provider    String               @default("local") // local, google, github
+  providerId  String?              @unique // Nullable cho local login
   createdAt   DateTime             @default(now())
   updatedAt   DateTime             @updatedAt
   connections PlatformConnection[]
